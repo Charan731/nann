@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay 1 Rupee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f9;
+        }
+
+        .pay-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .pay-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+    <h1>Pay 1 Rupee</h1>
+    <button class="pay-btn" id="payBtn">Pay ₹1</button>
+
+    <script>
+        const key_id = "rzp_test_4XzgmPZdCxTkEX"; // Razorpay Test Key ID
+
+        document.getElementById('payBtn').onclick = function (e) {
+            e.preventDefault();
+
+            var options = {
+                "key": key_id,
+                "amount": 100, // Amount is in paise (₹1 = 100 paise)
+                "currency": "INR",
+                "name": "Test Payment",
+                "description": "Pay ₹1",
+                "handler": function (response) {
+                    alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+                },
+                "prefill": {
+                    "name": "Your Name",
+                    "email": "your_email@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#28a745"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    </script>
+</body>
+</html>
